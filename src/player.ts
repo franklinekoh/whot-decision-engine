@@ -17,7 +17,7 @@ type PlayerProps = {
     pile: () => Pile;
 }
 
-type PlayerCards = {
+export type PlayerCards = {
     shapes: Card[],
     numbers: Card[]
 }

@@ -7,5 +7,5 @@ export interface whotInterface {
     checkIfWhotExistsInPlayersCard(): true
 
     // Go through the decision engine to get the right card
-    requestForCards(): Card
+    requestForCard(): Card
 }

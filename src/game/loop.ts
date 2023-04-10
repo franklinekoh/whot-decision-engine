@@ -1,5 +1,5 @@
 import {Player as WhotPlayer} from "whot/dist/player";
-import {Player, PlayerInterface} from "../player"
+import {PlayerInterface, IDInterface} from "../player/playerInterface"
 import { emitter, EventEmitter } from "whot/dist/events"
 import Market from "whot/dist/market"
 import { Pile } from "whot/dist/pile"
@@ -7,12 +7,13 @@ import Turn from "whot/dist/turn"
 import { GameInterface } from "./gameInterface"
 import { createError }  from '../error'
 import { InvalidNumberOfPlayers as numberOfPlayerError } from "../error/errors"
+import { Player } from "../player/player";
 
 const InvalidNumberOfPlayers = createError(numberOfPlayerError.name)
 
 export class GameLoop implements GameInterface  {
 
-    players: Player[] = [] // player with system id and name
+    players: PlayerInterface[] = [] // player with system id and name
     pile: Pile
     market: Market
     emitter: EventEmitter
@@ -21,9 +22,9 @@ export class GameLoop implements GameInterface  {
     noOfCardsPerPlayer: number = 5
     gameOn: boolean = true
 
-    constructor(playerInerfaces: PlayerInterface[]) {
+    constructor(playerInterfaces: IDInterface[]) {
 
-        if(playerInerfaces.length < 2){
+        if(playerInterfaces.length < 2){
           throw InvalidNumberOfPlayers(numberOfPlayerError.message)
         }
         this.pile = new Pile({ emitter })
@@ -34,7 +35,7 @@ export class GameLoop implements GameInterface  {
          pile: () => this.pile
        })
    
-       this.assignPlayers(playerInerfaces)
+       this.assignPlayers(playerInterfaces)
    
        this.turn = new Turn({
          players: this.players,
@@ -49,13 +50,13 @@ export class GameLoop implements GameInterface  {
    * Assign players 
    * 
    */
-  assignPlayers(players: PlayerInterface[]): Player[] {
+  assignPlayers(players: IDInterface[]): PlayerInterface[] {
     this.players = []
 
     for(let i = 0; i < players.length; i++){
-      const playerInterface: PlayerInterface = players[i]
+      const playerInterface: IDInterface = players[i]
 
-      const player: Player = new Player({
+      const player: PlayerInterface = new Player({
         id: playerInterface.id,
         emitter,
         market: () => this.market,

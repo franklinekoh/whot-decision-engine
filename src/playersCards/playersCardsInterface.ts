@@ -1,9 +1,9 @@
-import {Player, PlayerInterface} from "../player"
+import { PlayerInterface } from "../player/playerInterface"
 import Card from "whot/dist/card"
 
 export type playersCards = {
     card: Card,
-    Player: Player,
+    Player: PlayerCardsInterface,
 }
 
 export interface PlayerCardsInterface {

@@ -1,5 +1,5 @@
 
-import {PlayerCards} from '../player'
+import {PlayerCards} from '../player/playerInterface'
 export interface HoldOnInterface{
 
     playerCards: PlayerCards

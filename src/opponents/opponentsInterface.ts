@@ -1,4 +1,4 @@
-import {Player, PlayerInterface} from "../player"
+import {PlayerInterface} from "../player/playerInterface"
 import { emitter, EventEmitter } from "whot/dist/events"
 import Market from "whot/dist/market"
 import { Pile } from "whot/dist/pile"
@@ -7,9 +7,9 @@ import Card from "whot/dist/card"
 
 export interface OpponentsInterface {
     
-    opponents: Player[]
+    opponents: PlayerInterface[]
 
-    getOpponents(): Player[]
+    getOpponents(): PlayerInterface[]
 
     checkIfOpponentsPlayedWhot(): Boolean
 

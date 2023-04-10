@@ -1,9 +1,9 @@
 import { GameInterface } from "src/game/gameInterface";
-import { PlayerCards } from "src/player";
+import { PlayerInterface } from "src/player/playerInterface";
 
-export interface decideInterface{
+export interface DecideInterface{
     game: GameInterface
-    playerCards: PlayerCards
+    player: PlayerInterface
 
     checkIfWhotExistsInPlayerCards(): true
 

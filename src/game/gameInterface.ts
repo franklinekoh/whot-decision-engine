@@ -1,11 +1,11 @@
-import {Player, PlayerInterface} from "../player"
+import {PlayerInterface, IDInterface} from "../player/playerInterface"
 import { emitter, EventEmitter } from "whot/dist/events"
 import Market from "whot/dist/market"
 import { Pile } from "whot/dist/pile"
 import Turn from "whot/dist/turn"
 
 export interface GameInterface {
-    players: Player[]  // player with system id and name
+    players: PlayerInterface[]  // player with system id and name
     pile: Pile
     market: Market
     emitter: EventEmitter
@@ -14,7 +14,7 @@ export interface GameInterface {
     noOfCardsPerPlayer: number 
     gameOn: boolean 
 
-    assignPlayers(players: PlayerInterface[]): Player[]
+    assignPlayers(players: IDInterface[]): PlayerInterface[]
 
     assignCardsToPlayers(): void
 

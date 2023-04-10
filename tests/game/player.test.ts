@@ -1,5 +1,5 @@
 import { assert, expect } from "chai";
-import { Player } from "../../src/player"
+import { Player } from "../../src/player/player"
 import { Pile } from "whot/dist/pile"
 import { Market } from "whot/dist/market"
 import { Turn } from "whot/dist/turn"
@@ -193,7 +193,7 @@ describe("Player", () => {
 
         singlePlayer.add([circle4, cross4, triangle11])
 
-        const playerCards = singlePlayer.getMatchingCardsBasedOnShapeAndNumber()
+        const playerCards = singlePlayer.PlayerCards
 
         // Accertain that player cards contains some shap and contains some number
         // Test for shapes
@@ -202,7 +202,7 @@ describe("Player", () => {
                 return shapCard.shape === cardOnPile.shape
             })
         })
-        
+
         // Test for numbers 
         expect(playerCards.numbers).to.satisfy((arrayOfShapeCards : Card[]) => {
             return arrayOfShapeCards.every((shapCard: Card) => {

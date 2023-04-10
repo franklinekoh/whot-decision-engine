@@ -3,12 +3,9 @@ import { eventify, EventEmitter } from "whot/dist/events";
 import Market from "whot/dist/market";
 import Pile from "whot/dist/pile";
 import Card from "whot/dist/card";
+import { IDInterface, PlayerCards, PlayerInterface } from "./playerInterface";
 
-export type PlayerInterface = {
-    unique_id: string;
-    name: string;
-    id: number;
-}
+
 
 type PlayerProps = {
     id: number;
@@ -17,31 +14,26 @@ type PlayerProps = {
     pile: () => Pile;
 }
 
-export type PlayerCards = {
-    shapes: Card[],
-    numbers: Card[]
-}
 
-export class Player extends WhotPlayer {
-    playerInterface: PlayerInterface
+export class Player extends WhotPlayer implements PlayerInterface {
+    IDInterface: IDInterface
+    PlayerCards: PlayerCards
 
-    constructor(playerProps: PlayerProps, playerInterfaceProps: PlayerInterface){
+    constructor(playerProps: PlayerProps, playerInterfaceProps: IDInterface){
         super(playerProps)
-        this.playerInterface = playerInterfaceProps;
-    }
-
-    getCardOnPile(): Card{
-        return this.pile().top();
-    }
-    
-    getMatchingCardsBasedOnShapeAndNumber(): PlayerCards{
+        this.IDInterface = playerInterfaceProps
+        
         const shapes = this.matchesShape(this.getCardOnPile())
         const numbers = this.matchesNumber(this.getCardOnPile())
         const playerCards: PlayerCards = {
             shapes,
             numbers
         }
-        return playerCards
+        this.PlayerCards = playerCards
+    }
+
+    getCardOnPile(): Card{
+        return this.pile().top();
     }
 
     matchesShape(card: Card): Card[] { 

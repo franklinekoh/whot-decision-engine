@@ -7,8 +7,6 @@ import Card from "whot/dist/card"
 
 export interface OpponentsInterface {
     
-    opponents: PlayerInterface[]
-
     getOpponents(): PlayerInterface[]
 
     checkIfOpponentsPlayedWhot(): Boolean

@@ -1,16 +1,16 @@
 import { PlayerInterface } from "../player/playerInterface"
 import Card from "whot/dist/card"
 
-export type playersCards = {
+export type playersCard = {
     card: Card,
-    Player: PlayerCardsInterface,
+    Player: PlayerInterface,
 }
 
 export interface PlayerCardsInterface {
-    playersCards: playersCards[]
 
-    setPlayersCards(playerCards: playersCards): playersCards[]
+    setPlayersCard(playersCard: playersCard): void
 
-    getLastPlayersCards(): playersCards[]
+    getLastPlayersCards(numberOfPlayers: number): playersCard[]
 
+    getPlayersCards(): playersCard[]
 }

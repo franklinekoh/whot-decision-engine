@@ -18,14 +18,26 @@ const mockMarket = () => market
 const mockPile = () => pile
 
 describe("Player", () => {
-    it('should throw error if class prop not passed', () => {
+
+    it('should throw error if player ids mismatch', () => {
         try{
-            // @ts-ignore
-            const player = new Player();
+            const player = new Player(
+                {
+                    id: 1,
+                    emitter,
+                    market: mockMarket,
+                    pile: mockPile
+                },
+                {
+                    unique_id: 'SLKLD1928100',
+                    name: 'OBO',
+                    id: 2
+                }
+            );
             assert.fail();
         }catch(err: any){
-            assert.equal(err.name, "InvalidArgumentError");
-            assert.equal(err.message, "props");
+            assert.equal(err.name, "playerIDMismatch");
+            assert.equal(err.message, "playerProps.id must be equal playerInterfaceProps.id");
         }       
     })
 

@@ -4,8 +4,10 @@ import Market from "whot/dist/market";
 import Pile from "whot/dist/pile";
 import Card from "whot/dist/card";
 import { IDInterface, PlayerCards, PlayerInterface } from "./playerInterface";
+import { createError }  from '../error'
+import { playerIDMismatch } from "../error/errors"
 
-
+const playerIDMismatchError = createError(playerIDMismatch.name)
 
 type PlayerProps = {
     id: number;
@@ -20,6 +22,9 @@ export class Player extends WhotPlayer implements PlayerInterface {
     PlayerCards: PlayerCards
 
     constructor(playerProps: PlayerProps, playerInterfaceProps: IDInterface){
+        if(playerProps.id !== playerInterfaceProps.id){
+            throw playerIDMismatchError(playerIDMismatch.message)
+        }
         super(playerProps)
         this.IDInterface = playerInterfaceProps
         

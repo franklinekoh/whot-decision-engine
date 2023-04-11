@@ -1,9 +1,9 @@
 import {PlayerInterface} from "../player/playerInterface"
 import Card from "whot/dist/card"
-import {playersCard, PlayerCardsInterface} from "./playersCardsInterface"
+import {playersCard, PlayersCardsInterface} from "./playersCardsInterface"
 
-export class PlayerCards implements PlayerCardsInterface{
-    private playersCards: playersCard[]
+export class PlayersCards implements PlayersCardsInterface{
+    private playersCards: playersCard[] = []
 
     setPlayersCard(_playersCard_: playersCard): void{
         this.playersCards.push(_playersCard_)

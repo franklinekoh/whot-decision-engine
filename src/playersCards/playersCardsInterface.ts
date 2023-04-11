@@ -3,10 +3,10 @@ import Card from "whot/dist/card"
 
 export type playersCard = {
     card: Card,
-    Player: PlayerInterface,
+    player: PlayerInterface,
 }
 
-export interface PlayerCardsInterface {
+export interface PlayersCardsInterface {
 
     setPlayersCard(playersCard: playersCard): void
 

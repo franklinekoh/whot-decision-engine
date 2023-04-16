@@ -81,8 +81,14 @@ export class GameLoop implements GameInterface  {
     }
   }
 
+  getPlayerTurn(): PlayerInterface {
+    const player: WhotPlayer|undefined = this.turn.next()
+    const playerTurn = this.players.filter((value: PlayerInterface) => value.IDInterface.id === player?.id)
+    return playerTurn[0]
+  }
+
   start(): void {
-      // listen for player:checkup even and update game status
+      // listen for player:checkup event and update game status
       while(this.gameOn){
 
         const player: WhotPlayer|undefined = this.turn.next()

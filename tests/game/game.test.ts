@@ -1,7 +1,9 @@
-import { assert } from "chai";
+import { assert, expect } from "chai";
 import Shapes, { CardShape } from 'whot/dist/shapes'
 import { GameLoop } from "../../src/game/loop"
 import { InvalidNumberOfPlayers } from "../../src/error/errors"
+import { Player } from "../../src/player/player"
+import { PlayersCards } from "src/playersCards/playersCards";
 
 describe("Game", () => {
     it("should have specified number of players", () => {
@@ -55,6 +57,24 @@ describe("Game", () => {
         game.players.forEach((players) => {
             assert.equal(players.cards.length, game.noOfCardsPerPlayer)
         })
+    })
+
+    it("should return next player", () => {
+        const players = [{
+            unique_id: 'KDJKFskdksjks',
+            name: 'starboy',
+            id: 1
+        },
+        {
+            unique_id: 'KDJKFskdksjks',
+            name: 'Obo',
+            id: 2
+        }
+        ]
+        const game = new GameLoop(players)
+        // game.assignCardsToPlayers()
+        expect(game.getPlayerTurn()).to.be.instanceOf(Player)
+        
     })
 
 })

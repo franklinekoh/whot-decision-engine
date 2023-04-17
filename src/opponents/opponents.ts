@@ -25,8 +25,30 @@ export class Opponents {
         })
     }
 
-    // getOpponentsLastPlayed(): playersCard[] {
+    getOpponentsLastPlayed(): playersCard[] {
+        let result: playersCard[] = []
+        let playerSet = new Set()
+        const data = this.game.playersCards.getPlayersCards()
 
-    // }
+        for(let i = 0; i < data.length; i++){
+            let value: playersCard = data[i]
+
+            if(value.player.id === this.player.id){
+                continue
+            }
+
+            if(playerSet.has(value.player.id)){
+                break
+            }
+
+            if(result.length > 0 && result[result.length - 1].player.id !== value.player.id){
+                playerSet.add(result[result.length - 1].player.id)
+            }
+
+            result.push(value)
+        }
+      
+        return result
+    }
 
 }

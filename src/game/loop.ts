@@ -8,6 +8,7 @@ import { GameInterface } from "./gameInterface"
 import { createError }  from '../error'
 import { InvalidNumberOfPlayers as numberOfPlayerError } from "../error/errors"
 import { Player } from "../player/player";
+import { PlayersCards } from "../playersCards/playersCards"
 
 const InvalidNumberOfPlayers = createError(numberOfPlayerError.name)
 
@@ -21,6 +22,7 @@ export class GameLoop implements GameInterface  {
     noOfDecks: number = 1
     noOfCardsPerPlayer: number = 5
     gameOn: boolean = true
+    playersCards: PlayersCards //stores every card played by every player for decision making
 
     constructor(playerInterfaces: IDInterface[]) {
 
@@ -41,6 +43,8 @@ export class GameLoop implements GameInterface  {
          players: this.players,
          emitter,
        })
+
+       this.playersCards = new PlayersCards()
    
        this.emitter = emitter
 

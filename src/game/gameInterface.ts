@@ -3,6 +3,7 @@ import { emitter, EventEmitter } from "whot/dist/events"
 import Market from "whot/dist/market"
 import { Pile } from "whot/dist/pile"
 import Turn from "whot/dist/turn"
+import { PlayersCards } from "../playersCards/playersCards"
 
 export interface GameInterface {
     players: PlayerInterface[]  // player with system id and name
@@ -12,7 +13,9 @@ export interface GameInterface {
     turn: Turn
     noOfDecks: number 
     noOfCardsPerPlayer: number 
-    gameOn: boolean 
+    gameOn: boolean
+    playersCards: PlayersCards //stores every card played by every player for decision making
+
 
     assignPlayers(players: IDInterface[]): PlayerInterface[]
 

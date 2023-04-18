@@ -53,26 +53,40 @@ describe("Opponents", () => {
             unique_id: 'hskwoeiuow',
             name: 'Halla',
             id: 3
-        }
-        ]
+        }]
         const game = new GameLoop(players)
         
-        for(let i = 0; i < game.players.length * 2; i++){
-            const player: PlayerInterface = game.players[i]
-            const card: Card[] = game.market.pick(1)
-            game.playersCards.setPlayersCard({
-                player,
-                card: card[0]
-            })
+        for(let i = 0; i < game.players.length; i++){
+            let n = 0
+            while(n < 2){
+                const player: PlayerInterface = game.players[i]
+                const card: Card[] = game.market.pick(1)
+                game.playersCards.setPlayersCard({
+                    player,
+                    card: card[0]
+                })
+                ++n
+            }
+            
         }
+
+        const card: Card[] = game.market.pick(1)
+        const player: PlayerInterface = game.players[1]
+        game.playersCards.setPlayersCard({
+            player,
+            card: card[0]
+        })
+
+
         const playerTurn: PlayerInterface = game.getPlayerTurn()
         const opponents = new Opponents({
             game: game,
             player: playerTurn
         })
 
-        console.log(opponents.getOpponentsLastPlayed())
-        expect(opponents.getOpponentsLastPlayed()).to.satisfy((playersCards: playersCard[]) => {
+        const opponentsLastPlayed = opponents.getOpponentsLastPlayed()
+        expect(opponentsLastPlayed).to.have.lengthOf(3);
+        expect(opponentsLastPlayed).to.satisfy((playersCards: playersCard[]) => {
             return playersCards.every((playersCard: playersCard) => {
                 return playersCard.player.id !== playerTurn.id
             })

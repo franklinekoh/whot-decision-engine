@@ -30,7 +30,7 @@ export class Opponents {
         let playerSet = new Set()
         const data = this.game.playersCards.getPlayersCards()
 
-        for(let i = 0; i < data.length; i++){
+        for(let i = data.length - 1; i >= 0; i--){
             let value: playersCard = data[i]
 
             if(value.player.id === this.player.id){

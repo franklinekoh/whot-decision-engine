@@ -7,9 +7,10 @@ import { decideProp } from "../decide/decide"
 import { GameInterface } from "../game/gameInterface"
 import { playersCard, PlayersCardsInterface } from "../playersCards/playersCardsInterface"
 import { PlayersCards } from "../playersCards/playersCards"
+import { OpponentsInterface } from "./opponentsInterface"
 
 
-export class Opponents {
+export class Opponents implements OpponentsInterface{
 
     game: GameInterface
     player: PlayerInterface;
@@ -49,6 +50,29 @@ export class Opponents {
         }
       
         return result
+    }
+
+    checkIfOpponentsIsLastCard(): Boolean {
+        const opponents = this.getOpponents()
+        for(let i = 0; i < opponents.length; i++){
+            const player: PlayerInterface = opponents[i]
+            if(player.cards.length === 1){
+                return true
+            }
+        }
+        return false;
+    }
+
+    checkIfOpponentsPlayedWhot(): Boolean {
+        const opponentsLastPlayed = this.getOpponentsLastPlayed()
+        for(let i = 0; i < opponentsLastPlayed.length; i++){
+            const playerCard: playersCard = opponentsLastPlayed[i]
+            if(playerCard.card.value === 20){
+                return true
+            }
+        }
+
+        return false
     }
 
 }

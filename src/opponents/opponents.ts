@@ -3,9 +3,10 @@ import { decideProp } from "../decide/decide"
 import { GameInterface } from "../game/gameInterface"
 import { playersCard } from "../playersCards/playersCardsInterface"
 import { OpponentsInterface } from "./opponentsInterface"
+import { iNeedValue } from "../util";
 
 
-export class Opponents implements OpponentsInterface{
+export class Opponents implements OpponentsInterface {
 
     game: GameInterface
     player: PlayerInterface;
@@ -62,7 +63,7 @@ export class Opponents implements OpponentsInterface{
         const opponentsLastPlayed = this.getOpponentsLastPlayed()
         for(let i = 0; i < opponentsLastPlayed.length; i++){
             const playerCard: playersCard = opponentsLastPlayed[i]
-            if(playerCard.card.value === 20){
+            if(playerCard.card.value === iNeedValue){
                 return true
             }
         }

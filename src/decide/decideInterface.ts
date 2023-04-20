@@ -5,15 +5,13 @@ export interface DecideInterface{
     game: GameInterface
     player: PlayerInterface
 
-    checkIfWhotExistsInPlayerCards(): true
+    checkIFGeneralMarketExistsInPlayerCards(): Boolean
 
-    checkForGeneralMarket(): true
+    checkIfOpponentsIsLastCard(): Boolean
 
-    checkIfOpponentIsLastCard(): true
+    checkIfINeedExistsInPlayerCards(): Boolean
 
-    checkIfListContainsINeed(): true
+    checkIfDestroyersExistsInPlayerCards(): Boolean
 
-    checkIfListContainsDestroyer(): true
-
-    checkIfListContainsHoldOn(): true
+    checkIfHoldonExistsInPlayerCards(): Boolean
 }

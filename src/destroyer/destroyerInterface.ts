@@ -1,11 +1,14 @@
+import Card from "whot/dist/card"
 import {PlayerCards} from '../player/playerInterface'
 
 export interface DestroyerInterface {
     playerCards: PlayerCards
 
-    checkIfContinueExists(): true
+    seperateCards(): void
 
-    checkDestroyerWinningStreak(): true
+    checkIfContinueExists(): Boolean
+
+    checkDestroyerWinningStreak(): Boolean
 
     performDestroyerWinningStreak(): void
 }

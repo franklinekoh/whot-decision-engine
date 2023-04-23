@@ -1,4 +1,4 @@
-import { assert, expect } from "chai";
+import { assert, expect } from "chai"
 import Card from "whot/dist/card"
 import { Pile } from "whot/dist/pile"
 import { Market } from "whot/dist/market"

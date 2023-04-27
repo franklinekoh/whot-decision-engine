@@ -9,10 +9,12 @@
   "author": "Franklin Ekoh",
   "license": "ISC",
   "dependencies": {
+    "lodash": "^4.17.21",
     "whot": "^1.0.8-alpha-9.0"
   },
   "devDependencies": {
     "@types/chai": "^4.3.4",
+    "@types/lodash": "^4.14.194",
     "@types/mocha": "^10.0.1",
     "@types/node": "^18.15.3",
     "chai": "^4.3.7",

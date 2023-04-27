@@ -4,7 +4,7 @@ import { Opponents } from "../opponents/opponents";
 import { PlayerCards, PlayerInterface } from "../player/playerInterface";
 import { DecideInterface } from "./decideInterface";
 import Card from "whot/dist/card"
-import { generalMarketValue, holdOnValue, iNeedValue, pickTwoValue } from "../util";
+import { generalMarketValue, holdOnValue, iNeedValue, pickTwoValue, matchesShapeOrNumber } from "../util";
 
 export type decideProp = {
     game: GameInterface,
@@ -23,6 +23,7 @@ export class Decide implements DecideInterface {
         this.opponents = new Opponents(props)
    }
 
+//    All checks are done based on the card ontop of the pile
    checkIfOpponentsIsLastCard(): Boolean {
        return this.opponents.checkIfOpponentsIsLastCard()
    }
@@ -31,7 +32,8 @@ export class Decide implements DecideInterface {
         const cards: Card[] = this.player.cards;
         for(let i = 0; i < cards.length; i++){
             const card: Card = cards[i]
-            if(card.value === generalMarketValue){
+            
+            if(matchesShapeOrNumber(this.player.getCardOnPile(), card) && card.value === generalMarketValue){
                 return true
             }
         }
@@ -53,7 +55,8 @@ export class Decide implements DecideInterface {
         const cards: Card[] = this.player.cards;
         for(let i = 0; i < cards.length; i++){
             const card: Card = cards[i]
-            if(card.value === generalMarketValue || card.value === pickTwoValue){
+            if((matchesShapeOrNumber(this.player.getCardOnPile(), card) && (card.value === generalMarketValue))
+             || (matchesShapeOrNumber(this.player.getCardOnPile(), card) && (card.value === pickTwoValue))){
                 return true
             }
         }
@@ -64,7 +67,7 @@ export class Decide implements DecideInterface {
         const cards: Card[] = this.player.cards;
         for(let i = 0; i < cards.length; i++){
             const card: Card = cards[i]
-            if(card.value === holdOnValue){
+            if(matchesShapeOrNumber(this.player.getCardOnPile(), card) && card.value === holdOnValue){
                 return true
             }
         }

@@ -74,8 +74,9 @@ describe("Decide", () => {
             player: playerTurn
         });
 
+        playerTurn.pile().push([Card.createCrossCard({value: 4})])
         expect(decide.checkIFGeneralMarketExistsInPlayerCards()).to.be.false
-
+        
         playerTurn.cards.push(Card.createCrossCard({value: 14}))
         expect(decide.checkIFGeneralMarketExistsInPlayerCards()).to.be.true
 
@@ -134,6 +135,7 @@ describe("Decide", () => {
 
         const playerTurn: PlayerInterface = game.getPlayerTurn()
 
+        playerTurn.pile().push([Card.createStarCard({value: 8})])
 
         let decide = new Decide({
             game: game,
@@ -141,6 +143,7 @@ describe("Decide", () => {
         });
 
         expect(decide.checkIfHoldonExistsInPlayerCards()).to.be.false
+        playerTurn.pile().push([Card.createCircleCard({value: 8})])
 
         playerTurn.cards.push(Card.createCircleCard({value: 1}))
         expect(decide.checkIfHoldonExistsInPlayerCards()).to.be.true
@@ -172,10 +175,16 @@ describe("Decide", () => {
             game: game,
             player: playerTurn
         });
-
+        playerTurn.pile().push([Card.createCircleCard({value: 7})])
         expect(decide.checkIfDestroyersExistsInPlayerCards()).to.be.false
 
         playerTurn.cards.push(Card.createCircleCard({value: 2}))
+        expect(decide.checkIfDestroyersExistsInPlayerCards()).to.be.true
+
+        playerTurn.cards.pop()
+        expect(decide.checkIfDestroyersExistsInPlayerCards()).to.be.false
+
+        playerTurn.cards.push(Card.createCircleCard({value: 14}))
         expect(decide.checkIfDestroyersExistsInPlayerCards()).to.be.true
     })
 })

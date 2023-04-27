@@ -3,6 +3,7 @@ import { decideProp } from "../decide/decide"
 import { IDInterface, PlayerCards } from "../player/playerInterface";
 import { generalMarketValue, pickTwoValue, matchesShapeOrNumber } from "../util";
 import {isEqual} from "lodash"
+import { DestroyerInterface } from "./destroyerInterface"
 
 export type DestroyerContinue = {
     destroyers: Card[]
@@ -14,7 +15,7 @@ export type DestroyerProp = {
     cardOnPile: Card
 }
 
-export class Destroyer {
+export class Destroyer implements DestroyerInterface {
 
     cards: Card[]
     destroyers: Card[] = []
@@ -23,6 +24,7 @@ export class Destroyer {
     winningStreak: Card[] = []
     maxWinningStreak: Card[] = []
     cardOnPile: Card
+    continueCard?: Card 
 
     constructor(prop: DestroyerProp){
         this.cards = prop.cards
@@ -52,6 +54,7 @@ export class Destroyer {
                     for(let i = 0; i < this.noneDestroyers.length; i++){
                         const noneDestroyer: Card = this.noneDestroyers[i]
                         if(destroyer.shape === noneDestroyer.shape){
+                            this.continueCard = noneDestroyer
                             return true
                         }
                     }              
@@ -110,20 +113,16 @@ export class Destroyer {
 
                 const _destroyerMap_ = destroyerMap.get(destroyer) ?? []
                 this.maxWinningStreak = (_destroyerMap_.length > this.maxWinningStreak.length)? _destroyerMap_ : this.maxWinningStreak
-                console.log(this.maxWinningStreak)
+
                 if(_destroyerMap_.length === this.cards.length){
                     this.isWinningStreak = true
                     this.winningStreak = _destroyerMap_
-                    // console.log(this.winningStreak)
                     return true
                 }
-
-                
 
             }
         }
       
-
         this.isWinningStreak = false
         return false
     }

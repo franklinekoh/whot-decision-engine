@@ -70,11 +70,15 @@ describe("Destroyer", () => {
             cardOnPile: singlePlayer.getCardOnPile()
         }
         const destroyer: Destroyer = new Destroyer(destroyerProp)
-         
+        
+        const continueCard: Card = Card.createSquareCard({value: 4})
         expect(destroyer.checkIfContinueExists()).to.be.false
-        singlePlayer.add([Card.createSquareCard({value: 4})])
+        expect(destroyer.continueCard).to.be.undefined
+        
+        singlePlayer.add([continueCard])
         const destroyer1: Destroyer = new Destroyer(destroyerProp)
         expect(destroyer1.checkIfContinueExists()).to.be.true
+        expect(destroyer1.continueCard).to.be.equal(continueCard)
     })
 
     it('should check destroyer winning streak', () => {
@@ -86,6 +90,15 @@ describe("Destroyer", () => {
         // streak = [circle2, sqaure2, square14, square4]
         const destroyer: Destroyer = new Destroyer(destroyerProp)
         expect(destroyer.checkDestroyerWinningStreak()).to.be.true
+        singlePlayer.add([Card.createTriangleCard({value: 7})])
+
+        const destroyerProp1: DestroyerProp = {
+            cards: singlePlayer.cards,
+            cardOnPile: singlePlayer.getCardOnPile()
+        }
+        // streak = [circle2, sqaure2, square14, square4, triangle7]
+        const destroyer1: Destroyer = new Destroyer(destroyerProp1)
+        expect(destroyer1.checkDestroyerWinningStreak()).to.be.false
         
     })
 })

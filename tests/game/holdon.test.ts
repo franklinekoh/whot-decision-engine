@@ -29,7 +29,7 @@ const triangle5 = Card.createTriangleCard({
 
 const square1 = Card.createSquareCard({value: 1})
 
-const cards = [sqaure2, circle1, triangle1, triangle5]
+let cards = [sqaure2, circle1, triangle1, triangle5]
 describe("Destroyer", () => {
 
     it('should seperate cards', () => {
@@ -61,6 +61,29 @@ describe("Destroyer", () => {
             cardOnPile: Card.createTriangleCard({value: 7})
         })
         expect(holdOn.checkIfContinueExists()).to.be.true
+    })
+
+    it('should check holdon winning streak', () => {
+        // console.log(cards)
+        let holdOn = new HoldOn({
+            cards,
+            cardOnPile: Card.createTriangleCard({value: 7})
+        })
+        expect(holdOn.checkHoldOnWinningStreak()).to.be.false
+
+        cards = cards.filter((card: Card) => card.value !== 5)
+
+        holdOn = new HoldOn({
+            cards,
+            cardOnPile: Card.createTriangleCard({value: 7})
+        })
+        expect(holdOn.checkHoldOnWinningStreak()).to.be.true
+
+        holdOn = new HoldOn({
+            cards,
+            cardOnPile: Card.createCircleCard({value: 2})
+        })
+        expect(holdOn.checkHoldOnWinningStreak()).to.be.true
     })
 
 })

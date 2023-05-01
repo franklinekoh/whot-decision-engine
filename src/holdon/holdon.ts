@@ -1,10 +1,10 @@
 import {isEqual, map} from "lodash"
 import Card from "whot/dist/card"
 import { holdOnValue, isDestroyer, matchesNumber, matchesShape, matchesShapeOrNumber } from "../util";
-import { HoldOnProp } from "./holdonInterface";
+import { HoldOnProp, HoldOnInterface } from "./holdonInterface";
 import { Destroyer } from "../destroyer/destroyer";
 
-export class HoldOn {
+export class HoldOn implements HoldOnInterface{
 
     cards: Card[]
     holdOns: Card[] = []

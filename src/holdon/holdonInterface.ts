@@ -11,9 +11,19 @@ export type HoldOnProp = {
 export interface HoldOnInterface{
 
     cards: Card[]
-    checkHoldOnWinningStreak(): true
+    holdOns: Card[] 
+    noneholdOns: Card[] 
+    isWinningStreak: Boolean
+    winningStreak: Card[]
+    maxWinningStreak: Card[] 
+    cardOnPile: Card
+    continueCard?: Card 
+
+    checkHoldOnWinningStreak(): Boolean
 
     seperateCards(): void
 
-    checkIfContinueExists(): true
+    checkIfContinueExists(): Boolean
+
+    checkHoldOnWinningStreak(): Boolean
 }

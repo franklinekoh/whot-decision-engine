@@ -1,19 +1,9 @@
 import Card from "whot/dist/card"
-import { decideProp } from "../decide/decide"
-import { IDInterface, PlayerCards } from "../player/playerInterface";
 import { generalMarketValue, pickTwoValue, matchesShapeOrNumber } from "../util";
 import {isEqual} from "lodash"
-import { DestroyerInterface } from "./destroyerInterface"
+import { DestroyerInterface, DestroyerProp, DestroyerContinue } from "./destroyerInterface"
 
-export type DestroyerContinue = {
-    destroyers: Card[]
-    continue: Card
-}
 
-export type DestroyerProp = {
-    cards: Card[],
-    cardOnPile: Card
-}
 
 export class Destroyer implements DestroyerInterface {
 
@@ -99,6 +89,7 @@ export class Destroyer implements DestroyerInterface {
                     }
                 }
 
+                let isContinue = false
                 // None destroyers
                 for(let j = 0; j < this.noneDestroyers.length; j++){
                     const noneDestroyer: Card = this.noneDestroyers[j]

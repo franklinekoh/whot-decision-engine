@@ -2,7 +2,8 @@ import { assert, expect } from "chai"
 import Card from "whot/dist/card"
 import { Decide } from "../../src/decide/decide"
 import { PlayerInterface, PlayerCards } from "../../src/player/playerInterface"
-import { Destroyer, DestroyerProp } from "../../src/destroyer/destroyer"
+import { Destroyer } from "../../src/destroyer/destroyer"
+import { DestroyerProp } from "../../src/destroyer/destroyerInterface"
 import { GameLoop } from "../../src/game/loop"
 import { Player } from "../../src/player/player"
 import { Pile } from "whot/dist/pile"
@@ -74,7 +75,7 @@ describe("Destroyer", () => {
         const continueCard: Card = Card.createSquareCard({value: 4})
         expect(destroyer.checkIfContinueExists()).to.be.false
         expect(destroyer.continueCard).to.be.undefined
-        
+
         singlePlayer.add([continueCard])
         const destroyer1: Destroyer = new Destroyer(destroyerProp)
         expect(destroyer1.checkIfContinueExists()).to.be.true
@@ -90,6 +91,7 @@ describe("Destroyer", () => {
         // streak = [circle2, sqaure2, square14, square4]
         const destroyer: Destroyer = new Destroyer(destroyerProp)
         expect(destroyer.checkDestroyerWinningStreak()).to.be.true
+
         singlePlayer.add([Card.createTriangleCard({value: 7})])
 
         const destroyerProp1: DestroyerProp = {

@@ -1,11 +1,19 @@
 
-import {PlayerCards} from '../player/playerInterface'
+import {isEqual} from "lodash"
+import Card from "whot/dist/card"
+import { holdOnValue } from "../util";
+
+export type HoldOnProp = {
+    cards: Card[],
+    cardOnPile: Card
+}
+
 export interface HoldOnInterface{
 
-    playerCards: PlayerCards
+    cards: Card[]
     checkHoldOnWinningStreak(): true
 
-    performHoldOnWinningStreak(): any
+    seperateCards(): void
 
     checkIfContinueExists(): true
 }

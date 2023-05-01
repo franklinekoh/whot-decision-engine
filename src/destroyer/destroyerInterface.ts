@@ -1,6 +1,16 @@
 import Card from "whot/dist/card"
 import {PlayerCards} from '../player/playerInterface'
 
+export type DestroyerContinue = {
+    destroyers: Card[]
+    continue: Card
+}
+
+export type DestroyerProp = {
+    cards: Card[],
+    cardOnPile: Card
+}
+
 export interface DestroyerInterface {
     cards: Card[]
     destroyers: Card[]

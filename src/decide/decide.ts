@@ -1,10 +1,14 @@
+import Card from "whot/dist/card"
 import { GameInterface } from "src/game/gameInterface";
 import { OpponentsInterface } from "../opponents/opponentsInterface";
 import { Opponents } from "../opponents/opponents";
 import { PlayerCards, PlayerInterface } from "../player/playerInterface";
 import { DecideInterface } from "./decideInterface";
-import Card from "whot/dist/card"
 import { generalMarketValue, holdOnValue, iNeedValue, pickTwoValue, matchesShapeOrNumber } from "../util";
+import { HoldOn } from "../holdon/holdon";
+import { HoldOnInterface } from "../holdon/holdonInterface";
+import { Destroyer } from "../destroyer/destroyer";
+import { DestroyerInterface } from "../destroyer/destroyerInterface";
 
 export type decideProp = {
     game: GameInterface,
@@ -72,5 +76,10 @@ export class Decide implements DecideInterface {
             }
         }
         return false
+   }
+
+   execute(): Card | null {
+       
+        return null
    }
 }

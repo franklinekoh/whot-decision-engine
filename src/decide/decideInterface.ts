@@ -1,5 +1,6 @@
 import { GameInterface } from "src/game/gameInterface";
 import { PlayerInterface } from "src/player/playerInterface";
+import Card from "whot/dist/card";
 
 export interface DecideInterface{
     game: GameInterface
@@ -14,4 +15,6 @@ export interface DecideInterface{
     checkIfDestroyersExistsInPlayerCards(): Boolean
 
     checkIfHoldonExistsInPlayerCards(): Boolean
+
+    execute(): Card|null
 }

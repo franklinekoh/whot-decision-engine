@@ -187,4 +187,102 @@ describe("Decide", () => {
         playerTurn.cards.push(Card.createCircleCard({value: 14}))
         expect(decide.checkIfDestroyersExistsInPlayerCards()).to.be.true
     })
+
+    it("Should check if shape exists", () => {
+        const players = [{
+            unique_id: 'KDJKFskdksjks',
+            name: 'starboy',
+            id: 1
+        },
+        {
+            unique_id: 'KDJKFskdksjks',
+            name: 'Obo',
+            id: 2
+        }]
+
+        const game = new GameLoop(players)
+        const player1: PlayerInterface = game.players[0] 
+        const player2: PlayerInterface = game.players[1]
+
+        player1.cards.push(Card.createCircleCard({value: 5}))
+        player1.cards.push(Card.createCircleCard({value: 2}))
+        player2.cards.push(Card.createSquareCard({value: 11}))
+
+        const playerTurn: PlayerInterface = game.getPlayerTurn()
+
+        let decide = new Decide({
+            game: game,
+            player: playerTurn
+        });
+
+        playerTurn.pile().push([Card.createTriangleCard({value: 7})])
+        expect(decide.checkIfShapeExists()).to.be.false
+        playerTurn.pile().push([Card.createCircleCard({value: 7})])
+        expect(decide.checkIfShapeExists()).to.be.true
+        expect(decide.shapeStreak).to.have.lengthOf(2)
+    })
+
+    it("Should check if number exists", () => {
+        const players = [{
+            unique_id: 'KDJKFskdksjks',
+            name: 'starboy',
+            id: 1
+        },
+        {
+            unique_id: 'KDJKFskdksjks',
+            name: 'Obo',
+            id: 2
+        }]
+
+        const game = new GameLoop(players)
+        const player1: PlayerInterface = game.players[0] 
+        const player2: PlayerInterface = game.players[1]
+
+        player1.cards.push(Card.createCircleCard({value: 5}))
+        player1.cards.push(Card.createTriangleCard({value: 5}))
+        player2.cards.push(Card.createSquareCard({value: 11}))
+
+        const playerTurn: PlayerInterface = game.getPlayerTurn()
+
+        let decide = new Decide({
+            game: game,
+            player: playerTurn
+        });
+
+        playerTurn.pile().push([Card.createSquareCard({value: 7})])
+        expect(decide.checkIfNumberExists()).to.be.false
+        playerTurn.pile().push([Card.createSquareCard({value: 5})])
+        expect(decide.checkIfNumberExists()).to.be.true
+        expect(decide.numberStreak).to.have.lengthOf(2)
+    })
+
+    it("Should execute decision", () => {
+        const players = [{
+            unique_id: 'KDJKFskdksjks',
+            name: 'starboy',
+            id: 1
+        },
+        {
+            unique_id: 'KDJKFskdksjks',
+            name: 'Obo',
+            id: 2
+        }]
+
+        const game = new GameLoop(players)
+        const player1: PlayerInterface = game.players[0] 
+        const player2: PlayerInterface = game.players[1]
+
+        player1.cards.push(Card.createCircleCard({value: 5}))
+        player2.cards.push(Card.createSquareCard({value: 11}))
+
+        const playerTurn: PlayerInterface = game.getPlayerTurn()
+
+
+        let decide = new Decide({
+            game: game,
+            player: playerTurn
+        });
+
+
+    })
 })

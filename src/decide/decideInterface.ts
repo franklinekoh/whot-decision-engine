@@ -16,5 +16,9 @@ export interface DecideInterface{
 
     checkIfHoldonExistsInPlayerCards(): Boolean
 
-    execute(): Card|null
+    execute(): Card|undefined
+
+    checkIfShapeExists(): Boolean
+
+    checkIfNumberExists(): Boolean
 }

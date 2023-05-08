@@ -6,6 +6,8 @@ export class PlayersCards implements PlayersCardsInterface{
     private playersCards: playersCard[] = []
 
     setPlayersCard(_playersCard_: playersCard): void{
+        console.log('---------------------------------------')
+        console.log(_playersCard_)
         this.playersCards.push(_playersCard_)
     }
 

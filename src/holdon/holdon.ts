@@ -13,7 +13,6 @@ export class HoldOn implements HoldOnInterface{
     winningStreak: Card[] = []
     maxWinningStreak: Card[] = []
     cardOnPile: Card
-    continueCard?: Card 
 
     constructor(prop: HoldOnProp){
         this.cards = prop.cards

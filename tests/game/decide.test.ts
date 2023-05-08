@@ -272,17 +272,19 @@ describe("Decide", () => {
         const player1: PlayerInterface = game.players[0] 
         const player2: PlayerInterface = game.players[1]
 
-        player1.cards.push(Card.createCircleCard({value: 5}))
+        const circle5 = Card.createCircleCard({value: 5})
+        player1.cards.push(circle5)
         player2.cards.push(Card.createSquareCard({value: 11}))
 
         const playerTurn: PlayerInterface = game.getPlayerTurn()
-
-
+        game.pile.push([Card.createCircleCard({value: 1})])
+    
         let decide = new Decide({
             game: game,
             player: playerTurn
         });
 
+       expect(decide.execute()).to.equal(circle5)
 
     })
 })

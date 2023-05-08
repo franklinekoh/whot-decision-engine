@@ -17,6 +17,14 @@ export const matchesShapeOrNumber = (a: Card, b: Card): Boolean => {
     return false
 }
 
+export const matchesShapeAndNumber = (a: Card, b: Card): Boolean => {
+    if((a.shape === b.shape) && (a.value === b.value)){
+        return true
+    }
+
+    return false
+}
+
 export const matchesNumber = (a: Card, b: Card): Boolean => {
     if(a.value === b.value){
         return true

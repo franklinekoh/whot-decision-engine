@@ -6,10 +6,12 @@ import { PlayerCards, PlayerInterface } from "../player/playerInterface";
 import { DecideInterface } from "./decideInterface";
 import { generalMarketValue, holdOnValue, iNeedValue, pickTwoValue, matchesShapeOrNumber, matchesShape, matchesNumber } from "../util";
 import { HoldOn } from "../holdon/holdon";
-import { HoldOnInterface } from "../holdon/holdonInterface";
+import { HoldOnInterface, HoldOnProp } from "../holdon/holdonInterface";
 import { Destroyer } from "../destroyer/destroyer";
-import { DestroyerInterface } from "../destroyer/destroyerInterface";
+import { DestroyerInterface, DestroyerProp } from "../destroyer/destroyerInterface";
 import { isEqual } from "lodash";
+import { INeedInterface } from "../INeed/INeedInterface";
+import { INeed } from "../INeed/INeed";
 
 export type decideProp = {
     game: GameInterface,
@@ -23,6 +25,8 @@ export class Decide implements DecideInterface {
     opponents: OpponentsInterface
     shapeStreak: Card[] = []
     numberStreak: Card[] = []
+    iNeedCard?: Card
+    iNeedChosenCard?: Card
 
    constructor(props: decideProp){
         this.game = props.game
@@ -52,10 +56,23 @@ export class Decide implements DecideInterface {
         for(let i = 0; i < cards.length; i++){
             const card: Card = cards[i]
             if(card.value === iNeedValue){
+                this.iNeedCard = card
                 return true
             }
         }
         return false
+   }
+
+   getINeedCard(): Card {
+        const cards: Card[] = this.player.cards;
+        for(let i = 0; i < cards.length; i++){
+            const card: Card = cards[i]
+            if(card.value === iNeedValue){
+                return card
+            }
+        }
+
+        return cards[0]
    }
 
    checkIfDestroyersExistsInPlayerCards(): Boolean {
@@ -149,13 +166,87 @@ export class Decide implements DecideInterface {
         return false
    }
 
-   execute(): Card | null {
-       
+   execute(): Card|undefined {   
         // check if OP is last card
         // check if OP used whot and is last card
         // check if destroyer exists -> check destroyer winning strek -> play destroyer winning streak | store destroyer max winning streak
         // check if hold on exists -> check holdon winning streak -> play holdon winning streak | store holdon max winning streak
-        // 
-        return null
+        // check if list contains Ineed shape
+
+        // INeed 
+        const iNeedProp: decideProp = {
+            game: this.game,
+            player: this.player
+        }
+
+        const iNeed: INeedInterface = new INeed(iNeedProp)
+
+        // opponents    
+        const opponents = this.opponents
+
+        if(this.player.id === 2){
+            return this.player.cards.find((card: Card) => card.matches(this.game.pile.top()))
+        }
+
+        if(this.checkIfDestroyersExistsInPlayerCards()){
+            const destroyerProp: DestroyerProp = {
+                cards: this.player.cards,
+                cardOnPile: this.player.getCardOnPile()
+            }
+
+            const destroyer: DestroyerInterface = new Destroyer(destroyerProp)
+            if(destroyer.checkDestroyerWinningStreak()){
+                // return first card in destroyer streak
+                return destroyer.winningStreak[0]
+            }
+
+            if(opponents.checkIfOpponentsIsLastCard() || opponents.checkIfOpponentsPlayedWhot()){
+                // return first card from max winning streak
+                return destroyer.maxWinningStreak[0]
+            }
+        }
+
+        if(opponents.checkIfOpponentsPlayedWhot() && opponents.checkIfOpponentsIsLastCard()){
+            // danger, check for whot and change card on pile to another card, if not possible, check for destroyers within card on pile
+            if(this.checkIfINeedExistsInPlayerCards()){
+                this.iNeedChosenCard = iNeed.chooseCard()
+                return this.iNeedCard ?? this.getINeedCard()
+            }
+        }
+
+        const holdOnProp: HoldOnProp = {
+            cards: this.player.cards,
+            cardOnPile: this.player.getCardOnPile()
+        }
+
+        const holdOn: HoldOnInterface = new HoldOn(holdOnProp)
+
+        if(this.checkIfHoldonExistsInPlayerCards()){
+            
+            if(holdOn.checkHoldOnWinningStreak()){
+                // return first card in hold on winning streak
+                return holdOn.winningStreak[0]
+            }
+
+            // check if continue exists and play max winning streak
+            if(holdOn.checkIfContinueExists()){
+                return holdOn.maxWinningStreak[0]
+            }
+        }
+
+        if(this.checkIfNumberExists()){
+            return this.numberStreak[0]
+        }
+
+        if(this.checkIfShapeExists()){
+            return this.shapeStreak[0]
+        }
+
+        if(this.checkIfINeedExistsInPlayerCards()){
+            this.iNeedChosenCard = iNeed.chooseCard()
+            return this.iNeedCard ?? this.getINeedCard()
+        }
+        
+        return this.player.cards.find((card: Card) => card.matches(this.game.pile.top()))
    }
 }

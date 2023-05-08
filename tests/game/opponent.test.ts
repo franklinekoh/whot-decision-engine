@@ -1,11 +1,6 @@
 import { assert, expect } from "chai";
 import Card from "whot/dist/card"
-import { Pile } from "whot/dist/pile"
-import { Market } from "whot/dist/market"
-import {playersCard, PlayersCardsInterface} from "../../src/playersCards/PlayersCardsInterface"
-import { PlayersCards } from "../../src/playersCards/playersCards"
-import { Player } from "../../src/player/player"
-import { emitter, EventEmitter } from "whot/dist/events"
+import {playersCard} from "../../src/playersCards/PlayersCardsInterface"
 import { Opponents } from "../../src/opponents/opponents"
 import { GameLoop } from "../../src/game/loop"
 import { PlayerInterface } from "../../src/player/playerInterface";

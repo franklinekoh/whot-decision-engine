@@ -1,15 +1,17 @@
-import {PlayerCards} from '../player/playerInterface'
 import Card from 'whot/dist/card'
-
-export type INeedProp = {
-    cards: Card[],
-    cardOnPile: Card
-}
+import { GameInterface } from "src/game/gameInterface";
+import { PlayerInterface } from "../player/playerInterface";
 
 export interface INeedInterface {
-    playerCards: PlayerCards
 
-    checkINeedWinningStreak(): true
+    game: GameInterface
+    player: PlayerInterface
+    cards: Card[]
+    cardOnPile: Card
+    INeedCards: Card[]
+    noneINeedCards: Card[]
 
-    checkIfContinueExists(): true
+    seperateCards(): void
+
+    chooseCard(): Card
 }

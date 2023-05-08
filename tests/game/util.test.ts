@@ -1,4 +1,4 @@
-import { matchesNumber, matchesShape, matchesShapeOrNumber, isDestroyer } from "../../src/util"
+import { matchesNumber, matchesShape, matchesShapeOrNumber, isDestroyer, matchesShapeAndNumber } from "../../src/util"
 import { assert, expect } from "chai"
 import Card from "whot/dist/card"
 
@@ -26,4 +26,10 @@ describe("Decide", () => {
         expect(isDestroyer(circle2)).to.be.true
         expect(isDestroyer(square4)).to.be.false
     }) 
+
+    it("Matches shape and number", () => {
+        expect(matchesShapeAndNumber(circle2, circle2)).to.be.true
+        expect(matchesShapeAndNumber(circle2, circle4)).to.be.false
+        expect(matchesShapeAndNumber(square4, circle4)).to.be.false
+    })
 })

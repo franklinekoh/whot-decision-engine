@@ -64,7 +64,6 @@ describe("Destroyer", () => {
     })
 
     it('should check holdon winning streak', () => {
-        // console.log(cards)
         let holdOn = new HoldOn({
             cards,
             cardOnPile: Card.createTriangleCard({value: 7})
@@ -78,12 +77,14 @@ describe("Destroyer", () => {
             cardOnPile: Card.createTriangleCard({value: 7})
         })
         expect(holdOn.checkHoldOnWinningStreak()).to.be.true
-
+        
         holdOn = new HoldOn({
             cards,
             cardOnPile: Card.createCircleCard({value: 2})
         })
+        
         expect(holdOn.checkHoldOnWinningStreak()).to.be.true
+
     })
 
 })

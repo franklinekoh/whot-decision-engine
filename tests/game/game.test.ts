@@ -77,4 +77,20 @@ describe("Game", () => {
         
     })
 
+    // it("should play game", () => {
+    //     const players = [{
+    //         unique_id: 'KDJKFskdksjks',
+    //         name: 'starboy',
+    //         id: 1
+    //     },
+    //     {
+    //         unique_id: 'KDJKFskdksjks',
+    //         name: 'Obo',
+    //         id: 2
+    //     }
+    //     ]
+    //     const game = new GameLoop(players)
+    //     game.start()
+    // })
+
 })
